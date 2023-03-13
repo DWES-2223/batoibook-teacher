@@ -11,7 +11,7 @@ if (isset($_POST['nick']) && isset($_POST['email']) && isset($_POST['password'])
     $connection->insert('users', [
         'nick' => $nick,
         'email' => $email,
-        'password' => hash('md5',$password)
+        'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
     header('Location: ./index.php');
 } else {

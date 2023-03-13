@@ -21,6 +21,27 @@ class Connection {
         }
     }
 
+    public function sql($class, $values)
+    {
+        $table = $class::table();
+        $sql = "SELECT * FROM $table WHERE (";
+        foreach (array_keys($values) as $key => $id) {
+            if ($key != 0)  {
+                $sql .= ','.$id.'=:'.$id;
+            } else {
+                $sql .= $id.'=:'.$id;
+            }
+        }
+        $sql .= ")";
+        $sentence = $this->connection->prepare($sql);
+        foreach ($values as $key => $value) {
+            $sentence->bindValue(":$key", $value);
+        }
+        $sentence -> setFetchMode(PDO::FETCH_CLASS, $class);
+        $sentence -> execute();
+        return  $sentence->fetchAll();
+    }
+
     public function insert($table, $values)
     {
         $keys = implode(", ", array_keys($values));
