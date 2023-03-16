@@ -16,5 +16,5 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     }
 } else {
     $email = $_GET['email'] ?? '';
-    include_once ('./views/login.php');
+    include_once ('./views/login.view.php');
 }

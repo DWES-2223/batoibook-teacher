@@ -21,20 +21,23 @@ class Connection {
         }
     }
 
-    public function sql($class, $values)
+    public function sql($class, $values=null)
     {
         $table = $class::table();
-        $sql = "SELECT * FROM $table WHERE (";
-        foreach (array_keys($values) as $key => $id) {
-            if ($key != 0)  {
-                $sql .= ','.$id.'=:'.$id;
-            } else {
-                $sql .= $id.'=:'.$id;
+        $sql = "SELECT * FROM $table";
+        if ($values) {
+            $sql .= " WHERE ";
+            foreach (array_keys($values) as $key => $id) {
+                if ($key != 0) {
+                    $sql .= " AND $id=:$id";
+                } else {
+                    $sql .= "$id=:$id";
+                }
             }
         }
-        $sql .= ")";
+
         $sentence = $this->connection->prepare($sql);
-        foreach ($values as $key => $value) {
+        foreach ($values??[] as $key => $value) {
             $sentence->bindValue(":$key", $value);
         }
         $sentence -> setFetchMode(PDO::FETCH_CLASS, $class);

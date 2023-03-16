@@ -15,5 +15,5 @@ if (isset($_POST['nick']) && isset($_POST['email']) && isset($_POST['password'])
     ]);
     header('Location: ./index.php');
 } else {
-    include_once ('./views/register.php');
+    include_once ('./views/register.view.php');
 }
