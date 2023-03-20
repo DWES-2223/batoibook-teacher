@@ -42,4 +42,16 @@ class Book
         return $connection->insert(self::table(), $values);
     }
 
+    public static function delete($id)
+    {
+        $connection = new Connection();
+        return $connection->delete(self::table(), $id);
+    }
+
+    public static function update($values, $id)
+    {
+        $connection = new Connection();
+        return $connection->update(self::table(), $values, $id);
+    }
+
 }

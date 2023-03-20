@@ -31,6 +31,8 @@
                 <td><?= $book->publisher ?></td>
                 <td><?= $book->price ?></td>
                 <td><a href="book.php?book=<?= $book->id ?>">Veure</a></td>
+                <td><a href="updateBook.php?book=<?= $book->id ?>">Modificar</a></td>
+                <td><a href="deleteBook.php?book=<?= $book->id ?>">Esborrar</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

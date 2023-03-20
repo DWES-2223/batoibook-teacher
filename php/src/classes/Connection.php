@@ -6,7 +6,8 @@ use PDOException;
 
 include_once("./config/parametresBD.php");
 
-class Connection {
+class Connection
+{
 
     public $connection;
 
@@ -47,10 +48,9 @@ class Connection {
 
     public function insert($table, $values)
     {
-        $keys = implode(", ", array_keys($values));
         $sql = "INSERT INTO $table (";
-        foreach (array_keys($values) as $key => $id){
-            if ($key != 0){
+        foreach (array_keys($values) as $key => $id) {
+            if ($key != 0) {
                 $sql .= ','.$id;
             } else {
                 $sql .= $id;
@@ -71,12 +71,39 @@ class Connection {
         }
 
         $sentence -> execute();
-        $id = $this->connection -> lastInsertId();
+        return $this->connection -> lastInsertId();
 
+    }
+
+    public function update($table, $values, $id)
+    {
+        $sql = "UPDATE $table SET ";
+        foreach (array_keys($values) as $key => $value) {
+            if ($key != 0) {
+                $sql .= ','.$value.'=:'.$value;
+            } else {
+                $sql .= $value.'=:'.$value;
+            }
+        }
+        $sql .= " WHERE id=:id";
+        $sentence = $this->connection->prepare($sql);
+        foreach ($values as $key => $value) {
+            $sentence->bindValue(":$key", $value);
+        }
+        $sentence -> execute();
         return $id;
     }
 
-
-
-
+    public function delete($table, $id)
+    {
+        $sql = "DELETE FROM $table WHERE id=:id";
+        $sentence = $this->connection->prepare($sql);
+        $sentence->bindValue(":id", $id);
+        $lines = $sentence -> execute();
+        if ($lines == 0) {
+            throw new Exception("No se ha podido eliminar el registro");
+        } else {
+            return $lines;
+        }
+    }
 }
