@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="ca">
 <head>
     <title>Login</title>
     <link
@@ -15,12 +16,17 @@
     </script>
 </head>
 <body>
-<h2>Book <?= $book->getModule() ?></h2>
-<h4>Publisher <?= $book->publisher ?></h4>
-<h4>Owner <?= $book->getOwner() ?></h4>
-<h4>Price <?= $book->price ?></h4>
-<h4>Pages <?= $book->pages ?></h4>
-<h4>Status <?= $book->status ?></h4>
-<h6><?= $book->comments ?></h6>
+<div style="float:left" class="col-6">
+    <h2>Book <?= $book->getModule() ?></h2>
+    <h4>Publisher <?= $book->publisher ?></h4>
+    <h4>Owner <?= $book->getOwner() ?></h4>
+    <h4>Price <?= $book->price ?></h4>
+    <h4>Pages <?= $book->pages ?></h4>
+    <h4>Status <?= $book->status ?></h4>
+    <h6><?= $book->comments ?></h6>
+</div>
+<div style="float:left" class="col-6">
+    <img src="<?= $book->photo ?>" alt="Photo:"/>
+</div>
 </body>
 </html>

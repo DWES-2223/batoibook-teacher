@@ -33,8 +33,13 @@ class Book
     public static function getById($id)
     {
         $connection = new Connection();
-        $book =  $connection->sql(self::class, ['id' => $id])[0];
-        return $book;
+        return  $connection->sql(self::class, ['id' => $id])[0];
+    }
+
+    public static function insert($values)
+    {
+        $connection = new Connection();
+        return $connection->insert(self::table(), $values);
     }
 
 }
