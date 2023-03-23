@@ -11,11 +11,12 @@ class Book
         return "books";
     }
 
-    public static function getAll()
+    public static function getAll($limit = null, $offset = null)
     {
         $connection = new Connection();
-        return $connection->sql(self::class);
+        return $connection->sql(self::class, null, $limit, $offset);
     }
+
 
     public function getModule()
     {

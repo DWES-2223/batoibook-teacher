@@ -38,5 +38,11 @@
         </tbody>
     </table>
     <a href="newBook.php" class="btn btn-primary">Crear nou llibre</a>
+    <?php if ($currentPage < $totalPages): ?>
+        <a href='?page=<?= $currentPage+1 ?>'>Següent</a>
+    <?php endif; ?>
+    <?php if ($currentPage > 1): ?>
+        <a href='?page=<?= $currentPage-1 ?>'>Anterior</a>
+    <?php endif; ?>
 </body>
 </html>

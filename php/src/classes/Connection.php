@@ -22,7 +22,7 @@ class Connection
         }
     }
 
-    public function sql($class, $values=null)
+    public function sql($class, $values=null, $limit = null, $offset = null)
     {
         $table = $class::table();
         $sql = "SELECT * FROM $table";
@@ -36,7 +36,9 @@ class Connection
                 }
             }
         }
-
+        if (isset($limit) && isset($offset)) {
+            $sql .= " LIMIT $limit OFFSET $offset";
+        }
         $sentence = $this->connection->prepare($sql);
         foreach ($values??[] as $key => $value) {
             $sentence->bindValue(":$key", $value);
