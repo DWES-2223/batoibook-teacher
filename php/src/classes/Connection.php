@@ -4,7 +4,7 @@ namespace App;
 use PDO;
 use PDOException;
 
-include_once("./config/parametresBD.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/config/parametresBD.php");
 
 class Connection
 {
